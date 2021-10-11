@@ -1,3 +1,5 @@
+package Utils;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -15,6 +17,11 @@ public class Utils {
     {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+    public String generateRandomEmail(int min, int max) {
+        double id= Math.random()*(max-min)+min;
+        String email="test"+(int)id+"@grr.la";
+        return email;
     }
     public void takeScreenShot() throws IOException {
         File screenshotFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
