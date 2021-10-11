@@ -1,3 +1,5 @@
+package Setup;
+
 import Utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Setup {
     public WebDriver driver;
+    //@BeforeTest(groups = {"login_positive","login_negative"})
     @BeforeTest
     public void setUp() throws IOException {
         FirefoxOptions ops = new FirefoxOptions();
@@ -23,7 +26,7 @@ public class Setup {
 
     }
 
-    @AfterMethod //AfterMethod annotation - This method executes after every test execution
+    @AfterMethod(groups = "login_positive") //AfterMethod annotation - This method executes after every test execution
     public void screenShot(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             try {
@@ -35,8 +38,8 @@ public class Setup {
         }
     }
 
-    @AfterTest
+    @AfterTest(groups = "login_positive")
     public void AfterTest(){
-        driver.close();
+        driver.quit();
     }
 }
