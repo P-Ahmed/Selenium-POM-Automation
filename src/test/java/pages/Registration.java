@@ -1,5 +1,6 @@
 package pages;
 
+import Utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,10 +40,12 @@ public class Registration {
         this.driver = driver;
         PageFactory.initElements(driver,this);
     }
-
+    Utils utils;
     public String doRegistration() throws InterruptedException {
         linkSignIn.click();
-        textEmail.sendKeys("amino@mailinator.com");
+        utils=new Utils(driver);
+        String email= utils.generateRandomEmail(100000,999999);
+        textEmail.sendKeys(email);
         buttonCreateAnAccount.click();
         textFirstName.sendKeys("Amino");
         textLastName.sendKeys("Tester");

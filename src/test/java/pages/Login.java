@@ -19,6 +19,8 @@ public class Login {
     WebElement lblUserName;
     @FindBy(xpath = "//li[contains(text(),'Authentication failed.')]")
     WebElement lblAuthentication;
+    @FindBy(xpath = "//li[contains(text(),'Invalid email address.')]")
+    WebElement lblInvalidEmail;
 
     public Login(WebDriver driver){
         this.driver = driver;
@@ -31,12 +33,12 @@ public class Login {
         btnSignIn.click();
         return lblUserName.getText();
     }
-    public String doLoginWithWrongEmail(String email, String password){
+    public String doLoginWithInvalidEmail(String email, String password){
         linkSignIn.click();
         txtEmail.sendKeys(email);
         txtPassword.sendKeys(password);
         btnSignIn.click();
-        return lblAuthentication.getText();
+        return lblInvalidEmail.getText();
     }
     public String doLoginWithWrongPassword(String email, String password){
         linkSignIn.click();
