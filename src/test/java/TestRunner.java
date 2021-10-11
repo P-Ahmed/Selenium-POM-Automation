@@ -3,6 +3,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import pages.Login;
 import pages.Registration;
@@ -14,7 +15,7 @@ public class TestRunner extends Setup {
     Login objLogin;
     Registration objRegistration;
     String fileName = "./src/test/resources/users.json";
-    @Test
+    @Test(enabled =true)
     public void doLogin() throws IOException, ParseException {
         driver.get("http://automationpractice.com/index.php");
         objLogin = new Login(driver);
@@ -28,9 +29,11 @@ public class TestRunner extends Setup {
 
         String user = objLogin.doLogin(email, password);
         Assert.assertTrue(user.contains("Test User"));
+
+        driver.findElement(By.xpath("//a[@class='logout']")).click();
     }
-    @Test
-    public void doLoginWithWrongEmail() throws IOException, ParseException {
+    @Test(enabled = true)
+    public void doLoginWithWrongPassword() throws IOException, ParseException {
         driver.get("http://automationpractice.com/index.php");
         objLogin = new Login(driver);
         JSONParser jsonParser = new JSONParser();
@@ -41,11 +44,11 @@ public class TestRunner extends Setup {
         String email = (String) json.get("email");
         String password = (String) json.get("password");
 
-        String auth = objLogin.doLoginWithWrongEmail(email, password);
+        String auth = objLogin.doLoginWithWrongPassword(email, password);
         Assert.assertTrue(auth.contains("Authentication failed."));
     }
-    @Test
-    public void doLoginWithWrongPassword() throws IOException, ParseException {
+    @Test(enabled = true)
+    public void doLoginWithWrongEmail() throws IOException, ParseException {
         driver.get("http://automationpractice.com/index.php");
         objLogin = new Login(driver);
         JSONParser jsonParser = new JSONParser();
@@ -56,10 +59,11 @@ public class TestRunner extends Setup {
         String email = (String) json.get("email");
         String password = (String) json.get("password");
 
-        String auth = objLogin.doLoginWithWrongPassword(email, password);
-        Assert.assertTrue(auth.contains("Authentication failed."));
+        String auth = objLogin.doLoginWithInvalidEmail(email, password);
+        Assert.assertTrue(auth.contains("Invalid email address."));
     }
-    @Test
+
+    @Test(enabled = true)
     public void doRegistration() throws InterruptedException {
         driver.get("http://automationpractice.com/index.php");
         objRegistration = new Registration(driver);
