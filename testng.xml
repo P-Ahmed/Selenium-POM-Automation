@@ -21,4 +21,10 @@
             <class name="TestRunner.LoginTestRunner"/>
         </classes>
     </test>
+
+    <test name="E-commerce portal purchase item">
+        <classes>
+            <class name="TestRunner.PurchaseItemTestRunner"/>
+        </classes>
+    </test>
 </suite>

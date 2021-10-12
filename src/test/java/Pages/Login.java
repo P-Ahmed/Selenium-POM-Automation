@@ -33,6 +33,12 @@ public class Login {
         btnSignIn.click();
         return lblUserName.getText();
     }
+    public void doLoginForPurchaseItem(String email, String password){
+        linkSignIn.click();
+        txtEmail.sendKeys(email);
+        txtPassword.sendKeys(password);
+        btnSignIn.click();
+    }
     public String doLoginWithInvalidEmail(String email, String password){
         linkSignIn.click();
         txtEmail.sendKeys(email);

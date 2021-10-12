@@ -23,6 +23,7 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.14.0'
 }
 
 test {

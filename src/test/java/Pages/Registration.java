@@ -1,11 +1,15 @@
 package Pages;
 
 import Utils.Utils;
+import org.json.simple.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Registration {
     WebDriver driver;
@@ -33,7 +37,7 @@ public class Registration {
     WebElement numberPhone;
     @FindBy(id = "submitAccount")
     WebElement submitRegister;
-    @FindBy(xpath = "//span[contains(text(),'Amino Tester')]")
+    @FindBy(xpath = "//span[contains(text(),'Test User')]")
     WebElement lblUserName;
 
     public Registration(WebDriver driver){
@@ -41,15 +45,25 @@ public class Registration {
         PageFactory.initElements(driver,this);
     }
     Utils utils;
-    public String doRegistration() throws InterruptedException {
+    public String doRegistration() throws InterruptedException, IOException {
         linkSignIn.click();
         utils=new Utils(driver);
+
         String email= utils.generateRandomEmail(100000,999999);
+        String password = "P@ssword123";
         textEmail.sendKeys(email);
         buttonCreateAnAccount.click();
-        textFirstName.sendKeys("Amino");
-        textLastName.sendKeys("Tester");
-        textPassword.sendKeys("P@ssword123");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", email);
+        jsonObject.put("password",password);
+        FileWriter file = new FileWriter("./src/test/resources/user.json");
+        file.write(jsonObject.toJSONString());
+        file.flush();
+
+        textFirstName.sendKeys("Test");
+        textLastName.sendKeys("User");
+        textPassword.sendKeys(password);
         textAddress.sendKeys("Toriko Street");
         textCity.sendKeys("Tikala");
         Select state = new Select(optionState);
