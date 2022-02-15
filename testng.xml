@@ -27,4 +27,5 @@
             <class name="TestRunner.PurchaseItemTestRunner"/>
         </classes>
     </test>
+
 </suite>
